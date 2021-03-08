@@ -24,7 +24,19 @@
 function range(start, end) {
     // YOUR CODE GOES BELOW HERE //
     
+    let nums = []
     
+    if(start < end){
+        for(let i = start; i <= end; i++){
+            nums.push(i)
+        }
+    }
+    if(start > end){
+        for(let i = start; i >= end; i--){
+            nums.push(i)
+        }
+    }
+    return nums
     
     
     // YOUR CODE GOES ABOVE HERE //
