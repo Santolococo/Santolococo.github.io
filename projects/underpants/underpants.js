@@ -21,6 +21,9 @@ var _ = {};
 *   _.identity({a: "b"}) === {a: "b"}
 */
 
+_.identity = function(value) {
+    return value;
+};
 
 /** _.typeOf
 * Arguments:
@@ -42,6 +45,33 @@ var _ = {};
 * _.typeOf([1,2,3]) -> "array"
 */
 
+_.typeOf = function(value) {
+    if (Array.isArray(value)){
+        return "array";
+    }
+    if(value === null){
+        return "null";
+    }
+    if(typeof(value) === 'string'){
+        return "string";
+    }
+    if(typeof(value) === 'object'){
+        return "object";
+    }
+    if(value === undefined){
+        return "undefined";
+    }
+    if(typeof(value) === 'number'){
+        return "number";
+    }
+    if(typeof(value) === 'boolean'){
+        return "boolean";
+    }
+    if(typeof(value) === 'function'){
+        return "function";
+    }
+    
+};
 
 /** _.first
 * Arguments:
@@ -61,6 +91,24 @@ var _ = {};
 *   _.first(["a", "b", "c"], 2) -> ["a", "b"]
 */
 
+_.first = function(array, number){
+let firstElement = [];
+    if(!Array.isArray(array)){
+        return [];
+    }
+    if(number === isNaN || number === undefined){
+        return array[0];
+    }
+    if(number > array.length){
+        return array;
+    }
+    for(let i = 0; i < array.length; i++){
+        if(firstElement.length < number){
+            firstElement.push(array[i]);
+        }
+        else return firstElement;
+    }
+};
 
 /** _.last
 * Arguments:
@@ -80,7 +128,24 @@ var _ = {};
 *   _.last(["a", "b", "c"], 2) -> ["b", "c"]
 */
 
-
+_.last = function(array, number){
+let lastElement = [];
+    if(!Array.isArray(array)){
+        return [];
+    }
+    if(number === isNaN || number === undefined){
+        return array[array.length - 1];
+    }
+    if(number > array.length){
+        return array;
+    }
+    for(let i = array.length - 1; i >= 0; i--){
+        if(lastElement.length < number){
+            lastElement.unshift(array[i]);
+        }
+        else return lastElement;
+    }
+}
 /** _.indexOf
 * Arguments:
 *   1) An array
@@ -97,6 +162,15 @@ var _ = {};
 *   _.indexOf(["a","b","c"], "d") -> -1
 */
 
+_.indexOf = function(array, value){
+    
+    for(let i = 0; i < array.length; i++){
+        if(array[i] === value){
+            return i
+        }
+    }
+    return -1
+}
 
 /** _.contains
 * Arguments:
@@ -113,6 +187,9 @@ var _ = {};
 *   _.contains([1,"two", 3.14], "two") -> true
 */
 
+_.contains = function(array, value){
+    return (array.includes(value)) ? true : false
+}
 
 /** _.each
 * Arguments:
@@ -130,6 +207,18 @@ var _ = {};
 *      -> should log "a" "b" "c" to the console
 */
 
+_.each = function(collection, func){
+    if(Array.isArray(collection)){
+        for(let i = 0; i < collection.length; i++){
+            func(collection[i], i, collection)
+        }
+    }
+    else if(typeof collection === 'object'){
+        for(let key in collection){
+            func(collection[key], key, collection)
+        }
+    }
+}
 
 /** _.unique
 * Arguments:
@@ -140,6 +229,10 @@ var _ = {};
 * Examples:
 *   _.unique([1,2,2,4,5,6,5,2]) -> [1,2,4,5,6]
 */
+_.unique = function(array){
+let unique = [...new Set(array)]
+return unique
+}
 
 
 /** _.filter
@@ -158,6 +251,15 @@ var _ = {};
 *   use _.each in your implementation
 */
 
+_.filter = function(array, func){
+    let filtered = []
+    for(let i = 0; i < array.length; i ++){
+        if(func(array[i], i, array)){
+            filtered.push(array[i])
+        }
+    }
+    return filtered
+}
 
 /** _.reject
 * Arguments:
@@ -172,6 +274,15 @@ var _ = {};
 *   _.reject([1,2,3,4,5], function(e){return e%2 === 0}) -> [1,3,5]
 */
 
+_.reject = function(array, func){
+    let rejected = []
+    for(let i = 0; i <array.length; i++){
+        if(!func(array[i], i, array)){
+            rejected.push(array[i])
+        }
+    }
+    return rejected
+}
 
 /** _.partition
 * Arguments:
@@ -192,6 +303,19 @@ var _ = {};
 }
 */
 
+_.partition = function(array, func){
+    let truthy = []
+    let falsey = []
+    let part = [truthy, falsey]
+    for(let i = 0; i < array.length; i++){
+        if(func(array[i], i, array)){
+            truthy.push(array[i])
+        }
+        else if(!func(array[i], i, array)){
+            falsey.push(array[i])
+        }
+    }return part
+}
 
 /** _.map
 * Arguments:
@@ -209,6 +333,15 @@ var _ = {};
 *   _.map([1,2,3,4], function(e){return e * 2}) -> [2,4,6,8]
 */
 
+_.map = function(collection, func){
+    //make an empty array to return
+    let arr = []
+    _.each(collection, function(ele, i, col){
+        arr.push(func(ele, i, col))
+    })
+    //return arr
+    return arr
+}
 
 /** _.pluck
 * Arguments:
@@ -221,6 +354,17 @@ var _ = {};
 *   _.pluck([{a: "one"}, {a: "two"}], "a") -> ["one", "two"]
 */
 
+_.pluck = function(objArr, prop){
+    //for this function we will have to loop through an array of objects and check if the objects contain a specific property.
+    //if they have the property we will push them into an array.
+    let propArr = []
+    for(let i = 0; i < objArr.length; i++){
+        if(objArr[i].hasOwnProperty(prop)){
+            propArr.push(objArr[i][prop])
+        }
+    }
+    return propArr
+}
 
 /** _.every
 * Arguments:
@@ -243,6 +387,18 @@ var _ = {};
 *   _.every([1,2,3], function(e){return e % 2 === 0}) -> false
 */
 
+// _.every = function(collection, func){
+//     if(Array.isArray(collection)){
+//         for(let i = 0; i < collection.length; i++){
+//             func(collection[i], i, collection)
+//         }
+        
+//     }
+//     else if (typeof collection === 'object'){
+//         for(
+//             func(value, key, collection)
+//     }
+// }
 
 /** _.some
 * Arguments:
@@ -285,6 +441,28 @@ var _ = {};
 *   _.reduce([1,2,3], function(previousSum, currentValue, currentIndex){ return previousSum + currentValue }, 0) -> 6
 */
 
+_.reduce = function(array, func, seed){
+    //check if seed exists.
+    if(seed !== undefined){
+        //if so loop over the array
+        for(let i = 0; i < array.length; i++){
+            //call the func function on the seed, value, index, and array
+            //re-assign seed to be the value of the function call
+            seed = func(seed, array[i], i, array);
+        }
+        return seed
+    }
+    else {
+        //reassign seed to be the first index of the array
+        seed = array[0]
+        //loop through the array beginning at index 1
+        for(let i = 1; i < array.length; i++){
+            seed = func(seed, array[i], i, array)
+        }
+        return seed
+    }
+    
+}
 
 /** _.extend
 * Arguments:

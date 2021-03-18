@@ -54,7 +54,7 @@ console.log(plant);
 const santoBirthday = '12/08/1994';
 //can not be re-assigned//
 
-santoBirthday = '01/30/1954';
+//santoBirthday = '01/30/1954';
 console.log(santoBirthday);
 //this would print '12/08/1994'//
 
