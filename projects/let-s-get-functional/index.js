@@ -3,7 +3,7 @@
 'use strict';
 
 var customers = require('./data/customers.json');
-var _ = require(/* Replace this with the name of your lodown! */);
+var _ = require('underbar');
 
 /**
  * 1. Import your lodown module using the require() method,
@@ -16,13 +16,19 @@ var _ = require(/* Replace this with the name of your lodown! */);
  *
  * 4. To test your work, run the following command in your terminal:
  *
- *    npm start --prefix ./<YOUR_GITHUB_FOLDER/projects/let-s-get-functional
+ *    npm start --prefix ./santolococo.github.io/projects/let-s-get-functional
  *
  *    IMPORTANT: Make sure you replace <YOUR_GITHUB_FOLDER with your actual github folder name that is in your workspace.
  */
 
 var maleCount = function(array) {
-
+let males = _.filter(array, function(customerObj){
+    return customerObj.gender === 'male'
+})
+return males.length
+// return _.filter(array, function(customerObj){  // this is how i thought to solve this be
+//      return customerObj.gender === 'male'
+//  }).length
 };
 
 var femaleCount;
@@ -41,7 +47,17 @@ var friendsCount;
 
 var topThreeTags;
 
-var genderCount;
+var genderCount = function(array){
+    return _.reduce(array, function(resultObj, customerObj){
+        if(resultObj[customerObj.gender]){
+           resultObj[customerObj.gender] += 1 
+        }
+        else {
+            resultObj[customerObj.gender] = 1;
+        }
+        return resultObj
+    }, {})
+};
 
 //////////////////////////////////////////////////////////////////////
 // DON'T REMOVE THIS CODE ////////////////////////////////////////////
