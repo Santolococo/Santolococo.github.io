@@ -397,44 +397,44 @@ _.every = function(collection, iterator) {
 
 }
 
-_.every = function(collection, func) {
-    let bool = true
-    if (!func) {
-        if (Array.isArray(collection)) {
-            for (let i = 0; i < collection.length; i++) {
-                if (!collection[i]) bool = false
-            }
+// _.every = function(collection, func) {
+//     let bool = true
+//     if (!func) {
+//         if (Array.isArray(collection)) {
+//             for (let i = 0; i < collection.length; i++) {
+//                 if (!collection[i]) bool = false
+//             }
 
-        }
-        else {
-            for (let key of collection) {
-                if (!collection[key]) bool = false
-            }
+//         }
+//         else {
+//             for (let key of collection) {
+//                 if (!collection[key]) bool = false
+//             }
 
-        }
+//         }
 
-    }
-    else if (typeof func === 'function') {
-        if (Array.isArray(collection)) {
-            for (let i = 0; i < collection.length; i++) {
-                if (!func(collection[i], i, collection)) {
-                    bool = false
-                }
-            }
-        }
-    }
+//     }
+//     else if (typeof func === 'function') {
+//         if (Array.isArray(collection)) {
+//             for (let i = 0; i < collection.length; i++) {
+//                 if (!func(collection[i], i, collection)) {
+//                     bool = false
+//                 }
+//             }
+//         }
+//     }
 
-    else {
-        for (let key of collection) {
-            if (!func(collection[key], key, collection)) {
-                    bool = false
-                }
+//     else {
+//         for (let key of collection) {
+//             if (!func(collection[key], key, collection)) {
+//                     bool = false
+//                 }
 
-            }
-        }
-return bool
+//             }
+//         }
+// return bool
 
-};
+// };
 
 /** _.some
  * Arguments:
@@ -457,7 +457,44 @@ return bool
  *   _.some([1,2,3], function(e){return e % 2 === 0}) -> true
  */
 
+_.some = function(collection, func){
+    let bool = false
+    if (!func) {
+        if (Array.isArray(collection)) {
+            for (let i = 0; i < collection.length; i++) {
+                if (collection[i]) bool = true;
+            }
 
+        }
+        else {
+            for (let key in collection) {
+                if (collection[key]) bool = true;
+            }
+
+        }
+
+    }
+    else if (typeof func === 'function') {
+        if (Array.isArray(collection)) {
+            for (let i = 0; i < collection.length; i++) {
+                if (func(collection[i], i, collection)) {
+                    bool = true;
+                }
+            }
+        }
+    
+
+    else {
+        for (let key in collection) {
+            if (func(collection[key], key, collection)) {
+                    bool = true;
+                }
+
+            }
+        }
+    }
+return bool
+}
 /** _.reduce
  * Arguments:
  *   1) An array
@@ -514,6 +551,11 @@ _.reduce = function(array, func, seed) {
  *   _.extend(data, {b:"two"}); -> data now equals {a:"one",b:"two"}
  *   _.extend(data, {a:"two"}); -> data now equals {a:"two"}
  */
+ 
+ _.extend = function(obj1, obj2, ...objects){
+     let extended = Object.assign(obj1, obj2, ...objects)
+      return extended
+ }
 
 //////////////////////////////////////////////////////////////////////
 // DON'T REMOVE THIS CODE ////////////////////////////////////////////

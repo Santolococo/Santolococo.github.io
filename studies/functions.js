@@ -47,5 +47,9 @@
     //console.log(b)//will throw referenceError: b is not defined
 /*
     5. Closure is when a function references variable in its parent scope like 'canAccessA' above.
+    
+    6. Functions are hoisted. this means that they can be used anywhere in the code, even before they have been declared. they are brought to the top of the call stack.
 */
+
+
     

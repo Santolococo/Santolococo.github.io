@@ -13,10 +13,16 @@ let bear = 'grizzly'
 /*
         Comparison: used to compare values
             ex. >, <, >=, <=
-            5 > 4
+*/
+           if(5 > 4){
+               console.log(true)
+           } 
+/*            
         Arithmatic: used to do simple mathmatical procedures
             ex. +, -, /, *, %
-            5 + 4 = 9
+*/            
+           console.log(5 + 4)//returns 9
+/*            
         Logical: these are the AND, OR, and NOT operators
             ex. &&, ||, !
 */
